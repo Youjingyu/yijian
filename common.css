@@ -4,8 +4,6 @@ html{
 body{
     margin: 0;
     height: 100%;
-    background: url("img/bg.png") no-repeat;
-    background-size: 100% 100%;
 }
 img{
     width: 100%;
@@ -13,6 +11,17 @@ img{
 }
 input:focus, button:focus{
     outline: none;
+}
+
+.main{
+    display: none;
+    height: 100%;
+    background: url("img/bg.png") no-repeat;
+    background-size: 100% 100%;
+}
+.error-info{
+    display: none;
+    margin: 0;
 }
 .top-img{
     height: 40%;

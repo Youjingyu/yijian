@@ -11,48 +11,51 @@
     <link rel="stylesheet" href="common.css">
 </head>
 <body>
-<div class="top-img">
-    <img src="img/title.png">
-</div>
-<div class="content">
-    <input type="tel">
-    <button class="submit-btn" id="submit_btn"></button>
-</div>
-<div class="bottom-img">
-    <img src="img/rule.png">
-</div>
-<div class="modal" id="modal_getted">
-    <div class="modal-front">
-        <div class="modal-content modal-getted">
-            <div class="modal-getted-detail">
-                <img src="img/have-get-info.png">
-                <button class="close-btn" id="close_getted"></button>
+<p class="error-info" id="error_info">请使用微信扫描二维码</p>
+<div class="main" id="main">
+    <div class="top-img">
+        <img src="img/title.png">
+    </div>
+    <div class="content">
+        <input type="tel" id="tel_input">
+        <button class="submit-btn" id="submit_btn"></button>
+    </div>
+    <div class="bottom-img">
+        <img src="img/rule.png">
+    </div>
+    <div class="modal" id="modal_getted">
+        <div class="modal-front">
+            <div class="modal-content modal-getted">
+                <div class="modal-getted-detail">
+                    <img src="img/have-get-info.png">
+                    <button class="close-btn" id="close_getted"></button>
+                </div>
             </div>
         </div>
+        <div class="modal-back"></div>
     </div>
-    <div class="modal-back"></div>
-</div>
-<div class="modal" id="modal_suc">
-    <div class="modal-front">
-        <div class="modal-content modal-suc">
-            <div class="modal-suc-detail">
-                <img src="img/get-suc-info.png" class="suc-img">
-                <button class="close-btn" id="close_suc"></button>
+    <div class="modal" id="modal_suc">
+        <div class="modal-front">
+            <div class="modal-content modal-suc">
+                <div class="modal-suc-detail">
+                    <img src="img/get-suc-info.png" class="suc-img">
+                    <button class="close-btn" id="close_suc"></button>
+                </div>
             </div>
         </div>
+        <div class="modal-back"></div>
     </div>
-    <div class="modal-back"></div>
-</div>
-<div class="modal" id="modal_over">
-    <div class="modal-front">
-        <div class="modal-content modal-suc">
-            <div class="modal-suc-detail">
-                <img src="img/get-over-info.png" class="over-img">
-                <button class="close-btn" id="close_over"></button>
+    <div class="modal" id="modal_over">
+        <div class="modal-front">
+            <div class="modal-content modal-suc">
+                <div class="modal-suc-detail">
+                    <img src="img/get-over-info.png" class="over-img">
+                    <button class="close-btn" id="close_over"></button>
+                </div>
             </div>
         </div>
+        <div class="modal-back"></div>
     </div>
-    <div class="modal-back"></div>
 </div>
 <script src="common.js"></script>
 </body>
