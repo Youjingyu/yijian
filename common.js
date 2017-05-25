@@ -12,23 +12,25 @@ var Dom = {
     modal_suc: getEle('modal_suc'),
     close_suc: getEle('close_suc'),
     modal_over: getEle('modal_over'),
-    close_over: getEle('close_over')
+    close_over: getEle('close_over'),
+    modal_loading: getEle('modal_loading')
 }
 addTouchEvent(Dom.submit_btn, function () {
+    Dom.modal_loading.setAttribute('style', 'display: block');
     var tel = Dom.tel_input.value;
-    if(!(/^1(3|4|5|7|8)\d{9}$/.test(tel))){
-        alert("手机号码有误，请重填");
-        return false;
-    }
-    http.post('http://192.168.0.230/eleme/users/add', tel, function (data) {
-        if(data.code == 0){
-
-        }
-        console.log(data);
-        // Dom.modal_getted.setAttribute('style', 'display: block')
-        Dom.modal_suc.setAttribute('style', 'display: block');
-        // Dom.modal_over.setAttribute('style', 'display: block');
-    });
+    // if(!(/^1(3|4|5|7|8)\d{9}$/.test(tel))){
+    //     alert("手机号码有误，请重填");
+    //     return false;
+    // }
+    // http.post('http://192.168.0.230/eleme/users/add', tel, function (data) {
+    //     if(data.code == 0){
+    //
+    //     }
+    //     console.log(data);
+    //     // Dom.modal_getted.setAttribute('style', 'display: block')
+    //     Dom.modal_suc.setAttribute('style', 'display: block');
+    //     // Dom.modal_over.setAttribute('style', 'display: block');
+    // });
 });
 addTouchEvent(Dom.close_getted, function () {
     Dom.modal_getted.setAttribute('style', '')
