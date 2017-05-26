@@ -39,9 +39,7 @@ addTouchEvent(Dom.valid_num_btn, function () {
     btn.setAttribute("style", 'background: 0 0;background-color: #ddd;border-color: #ddd');
     timeDown(btn, 60);
 
-    http.post('http://192.168.0.182/eleme/send', {'mobile': mobile, 'type': 'login'}, function (data) {
-        console.log(data);
-    });
+    http.post('http://192.168.0.182/eleme/send', {'mobile': mobile, 'type': 'login'});
 
     function timeDown(obj, wait) {
         if (wait == 0) {
@@ -70,13 +68,19 @@ addTouchEvent(Dom.submit_btn, function () {
     Dom.modal_loading.setAttribute('style', 'display: block');
     http.post('http://192.168.0.182/eleme/login', {'userName': tel, 'checkCode': checkCode}, function (data) {
         Dom.modal_loading.setAttribute('style', '');
-        if(data.code == 40001){
-            Dom.modal_over.setAttribute('style', 'display: block');
-        } else if(data.code == 0){
-            Dom.modal_suc_title.setAttribute('class', 'modal-suc-title modal-suc-title-' + data.data);
-            Dom.modal_suc.setAttribute('style', 'display: block');
+        var header = data.header;
+        if(header && header.errorcode && header.errorcode == 4008){
+            alert('请获取验证码');
+        } else {
+            if(data.code == 40001){
+                Dom.modal_over.setAttribute('style', 'display: block');
+            } else if(data.code == 0){
+                Dom.modal_suc_title.setAttribute('class', 'modal-suc-title modal-suc-title-' + parseInt(data.data));
+                Dom.modal_suc.setAttribute('style', 'display: block');
+            } else {
+
+            }
         }
-        console.log(data);
     //     Dom.modal_getted.setAttribute('style', 'display: block')
     //     Dom.modal_over.setAttribute('style', 'display: block');
     // Dom.modal_loading.setAttribute('style', 'display: block');

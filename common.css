@@ -131,12 +131,32 @@ input:focus, button:focus{
     height: 81%;
 }
 .modal-suc-title{
-    height: 86%;
+    margin: 0 auto;
+    height: 10%;
+    width: 44%;
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
+.modal-suc-info{
+    margin-top: 2.5%;
+    height: 74%;
+    background: url("img/get-suc-info.png") no-repeat;
+    background-size: 100% 100%;
+}
 .modal-suc-title-3{
-    background-image: url("img/close.png");
+    background-image: url("img/3.png");
+}
+.modal-suc-title-6{
+    background-image: url("img/6.png");
+}
+.modal-suc-title-9{
+    background-image: url("img/9.png");
+}
+.modal-suc-title-66{
+    background-image: url("img/66.png");
+}
+.modal-suc-title-129{
+    background-image: url("img/129.png");
 }
 .modal-suc-detail .over-img{
     height: 81%;
