@@ -1,9 +1,11 @@
-if(!isWeiXin()){
-    getEle('main').setAttribute('style', 'display: block');
-} else {
-    getEle('error_info').setAttribute('style', 'display: block');
-}
-document.getElementsByTagName('body')[0].setAttribute('style', 'height:' + document.body.clientHeight + 'px');
+// if(!isWeiXin()){
+//     getEle('main').setAttribute('style', 'display: block');
+// } else {
+//     getEle('error_info').setAttribute('style', 'display: block');
+// }
+getEle('main').setAttribute('style', 'display: block');
+var scale = document.body.clientWidth / 1565;
+document.getElementsByTagName('body')[0].setAttribute('style', 'height:' + (scale * 3202)  + 'px');
 var Dom = {
     tel_input: getEle('tel_input'),
     submit_btn: getEle('submit_btn'),
@@ -16,7 +18,7 @@ var Dom = {
     modal_loading: getEle('modal_loading')
 }
 addTouchEvent(Dom.submit_btn, function () {
-    Dom.modal_loading.setAttribute('style', 'display: block');
+    // Dom.modal_loading.setAttribute('style', 'display: block');
     var tel = Dom.tel_input.value;
     // if(!(/^1(3|4|5|7|8)\d{9}$/.test(tel))){
     //     alert("手机号码有误，请重填");
@@ -28,7 +30,7 @@ addTouchEvent(Dom.submit_btn, function () {
     //     }
     //     console.log(data);
     //     // Dom.modal_getted.setAttribute('style', 'display: block')
-    //     Dom.modal_suc.setAttribute('style', 'display: block');
+        Dom.modal_suc.setAttribute('style', 'display: block');
     //     // Dom.modal_over.setAttribute('style', 'display: block');
     // });
 });

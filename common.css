@@ -24,17 +24,17 @@ input:focus, button:focus{
     margin: 0;
 }
 .top-img{
-    height: 40%;
+    height: 38.5%;
 }
 .bottom-img{
     margin: 0 auto;
     width: 90%;
-    height: 17%;
+    height: 15.3%;
 }
 .content{
-    margin: 6% auto 4%;
+    margin: 4% auto 3%;
     width: 71%;
-    height: 12%;
+    height: 9%;
 }
 .content input{
     width: 100%;
