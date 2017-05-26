@@ -22,6 +22,8 @@ var Dom = {
     modal_suc_title: getEle('modal_suc_title'),
     modal_over: getEle('modal_over'),
     close_over: getEle('close_over'),
+    modal_error: getEle('modal_error'),
+    close_error: getEle('close_error'),
     modal_loading: getEle('modal_loading')
 }
 addTouchEvent(Dom.valid_num_btn, function () {
@@ -72,13 +74,13 @@ addTouchEvent(Dom.submit_btn, function () {
         if(header && header.errorcode && header.errorcode == 4008){
             alert('请获取验证码');
         } else {
-            if(data.code == 40001){
+            if(data.code == 40000){
                 Dom.modal_over.setAttribute('style', 'display: block');
             } else if(data.code == 0){
                 Dom.modal_suc_title.setAttribute('class', 'modal-suc-title modal-suc-title-' + parseInt(data.data));
                 Dom.modal_suc.setAttribute('style', 'display: block');
             } else {
-
+                Dom.modal_error.setAttribute('style', 'display: block');
             }
         }
     //     Dom.modal_getted.setAttribute('style', 'display: block')
@@ -94,6 +96,9 @@ addTouchEvent(Dom.close_suc, function () {
 });
 addTouchEvent(Dom.close_over, function () {
     Dom.modal_over.setAttribute('style', '')
+});
+addTouchEvent(Dom.close_error, function () {
+    Dom.modal_error.setAttribute('style', '')
 });
 
 function isWeiXin(){
