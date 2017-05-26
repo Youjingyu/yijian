@@ -75,6 +75,8 @@ addTouchEvent(Dom.submit_btn, function () {
             alert('请获取验证码');
         } else {
             if(data.code == 40000){
+                Dom.modal_getted.setAttribute('style', 'display: block');
+            } else if(data.code == 50000){
                 Dom.modal_over.setAttribute('style', 'display: block');
             } else if(data.code == 0){
                 Dom.modal_suc_title.setAttribute('class', 'modal-suc-title modal-suc-title-' + parseInt(data.data));
