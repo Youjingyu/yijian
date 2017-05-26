@@ -61,6 +61,7 @@ input:focus, button:focus{
     border-radius: 7px;
     background: url("img/valid-btn.png") no-repeat;
     background-size: 100% 100%;
+    color: #666;
 }
 .submit-btn{
     width: 100%;

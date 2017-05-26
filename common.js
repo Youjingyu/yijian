@@ -25,21 +25,31 @@ var Dom = {
     modal_loading: getEle('modal_loading')
 }
 addTouchEvent(Dom.valid_num_btn, function () {
-    if(!(Reg.tel.test(Dom.tel_input.value))){
+    var btn = Dom.valid_num_btn;
+    if(btn.getAttribute('style')){
+        return false;
+    }
+    var mobile = Dom.tel_input.value;
+    if(!(Reg.tel.test(mobile))){
         alert("手机号码有误，请重新填写");
         return false;
     }
-    var btn = Dom.valid_num_btn;
+
     btn.setAttribute("disabled", true);
-    btn.setAttribute("style", 'background: none;background-color: grey;border-color: grey');
+    btn.setAttribute("style", 'background: 0 0;background-color: #ddd;border-color: #ddd');
     timeDown(btn, 60);
+
+    http.post('http://192.168.0.182/eleme/send', {'mobile': mobile, 'type': 'login'}, function (data) {
+        console.log(data);
+    });
+
     function timeDown(obj, wait) {
         if (wait == 0) {
             obj.removeAttribute("disabled");
             obj.setAttribute("style", '');
             obj.innerText = '';
         } else {
-            obj.innerText = wait + "秒";
+            obj.innerText = wait + " 秒";
             wait--;
             setTimeout(function () {
                 timeDown(obj, wait)
@@ -48,17 +58,17 @@ addTouchEvent(Dom.valid_num_btn, function () {
     }
 });
 addTouchEvent(Dom.submit_btn, function () {
-    var tel = Dom.tel_input.value;
+    var tel = Dom.tel_input.value, checkCode = Dom.valid_num.value;
     if(!(Reg.tel.test(tel))){
         alert("手机号码有误，请重新填写");
         return false;
     }
-    if(!(Reg.valid_num.test(Dom.valid_num.value))){
+    if(!(Reg.valid_num.test(checkCode))){
         alert("请输入正确的验证码");
         return false;
     }
     Dom.modal_loading.setAttribute('style', 'display: block');
-    http.post('http://192.168.0.182/eleme/users/add', tel, function (data) {
+    http.post('http://192.168.0.182/eleme/login', {'userName': tel, 'checkCode': checkCode}, function (data) {
         Dom.modal_loading.setAttribute('style', '');
         if(data.code == 40001){
             Dom.modal_over.setAttribute('style', 'display: block');
@@ -97,6 +107,13 @@ function addTouchEvent(dom, callback) {
     dom.addEventListener('touchstart', callback);
 }
 (function(owner){
+    owner.concatData = function (data) {
+        var result = [];
+        for(var i in data){
+            result.push(i + '=' + data[i]);
+        }
+        return result.join('&');
+    }
     owner.post = function(url, data, success){
         var xhr;
         if (window.XMLHttpRequest){
@@ -111,10 +128,10 @@ function addTouchEvent(dom, callback) {
         xhr.onreadystatechange = function(){
             if (xhr.readyState == 4) {
                 if (xhr.status == 200) {
-                    success(JSON.parse(xhr.responseText));
+                    success && success(JSON.parse(xhr.responseText));
                 }
             }
         }
-        xhr.send('mobile=' + data);
+        xhr.send(owner.concatData(data));
     }
 }(window.http = {}));
