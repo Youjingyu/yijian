@@ -71,8 +71,12 @@ addTouchEvent(Dom.submit_btn, function () {
     http.post('http://192.168.0.182/eleme/login', {'userName': tel, 'checkCode': checkCode}, function (data) {
         Dom.modal_loading.setAttribute('style', '');
         var header = data.header;
-        if(header && header.errorcode && header.errorcode == 4008){
-            alert('请获取验证码');
+        if(header && header.errorcode){
+            if(header.errorcode == 4008){
+                alert('请获取验证码');
+            } else if(header.errorcode == 4006){
+                alert('短信验证码错误');
+            }
         } else {
             if(data.code == 40000){
                 Dom.modal_getted.setAttribute('style', 'display: block');
