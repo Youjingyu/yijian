@@ -6,7 +6,10 @@ if(isWeiXin()){
 
 var scale = document.body.clientWidth / 1565;
 document.getElementsByTagName('body')[0].setAttribute('style', 'height:' + (scale * 3202)  + 'px');
+
 var BaseUrl = 'http://192.168.0.99:8080/act-weixin/';
+// var BaseUrl = 'http://192.168.0.182/eleme/';
+
 var Reg = {
     tel: /^1(3|4|5|7|8)\d{9}$/,
     valid_num: /^\d{4}$/,
@@ -41,11 +44,16 @@ addTouchEvent(Dom.valid_num_btn, function () {
     btn.setAttribute("disabled", true);
     btn.setAttribute("style", 'background: 0 0;background-color: #ddd;border-color: #ddd');
     timeDown(btn, 60);
-
-    http.post(BaseUrl + 'send', {'mobile': mobile, 'type': 'login'});
+    var timeDownFlag = true;
+    http.post(BaseUrl + 'send', {'mobile': mobile, 'type': 'login'}, function (data) {
+        if(data.code == 40000){
+            timeDownFlag = false;
+            showModal(Dom.modal_getted);
+        }
+    });
 
     function timeDown(obj, wait) {
-        if (wait == 0) {
+        if (wait == 0 || timeDownFlag == false) {
             obj.removeAttribute("disabled");
             obj.setAttribute("style", '');
             obj.innerText = '';
@@ -58,6 +66,7 @@ addTouchEvent(Dom.valid_num_btn, function () {
         }
     }
 });
+
 addTouchEvent(Dom.submit_btn, function () {
     var tel = Dom.tel_input.value, checkCode = Dom.valid_num.value;
     if(!(Reg.tel.test(tel))){
@@ -68,9 +77,9 @@ addTouchEvent(Dom.submit_btn, function () {
         alert("请输入正确的验证码");
         return false;
     }
-    Dom.modal_loading.setAttribute('style', 'display: block');
+    showModal(Dom.modal_loading);
     http.post(BaseUrl + 'login', {'userName': tel, 'checkCode': checkCode}, function (data) {
-        Dom.modal_loading.setAttribute('style', '');
+        hideModal(Dom.modal_loading);
         var header = data.header;
         if(header && header.errorcode){
             if(header.errorcode == 4008){
@@ -80,32 +89,29 @@ addTouchEvent(Dom.submit_btn, function () {
             }
         } else {
             if(data.code == 40000){
-                Dom.modal_getted.setAttribute('style', 'display: block');
+                showModal(Dom.modal_getted);
             } else if(data.code == 50000){
-                Dom.modal_over.setAttribute('style', 'display: block');
+                showModal(Dom.modal_over);
             } else if(data.code == 0){
                 Dom.modal_suc_title.setAttribute('class', 'modal-suc-title modal-suc-title-' + parseInt(data.data));
-                Dom.modal_suc.setAttribute('style', 'display: block');
+                showModal(Dom.modal_suc);
             } else {
-                Dom.modal_error.setAttribute('style', 'display: block');
+                showModal(Dom.modal_error);
             }
         }
-    //     Dom.modal_getted.setAttribute('style', 'display: block')
-    //     Dom.modal_over.setAttribute('style', 'display: block');
-    // Dom.modal_loading.setAttribute('style', 'display: block');
     });
 });
 addTouchEvent(Dom.close_getted, function () {
-    Dom.modal_getted.setAttribute('style', '')
+    hideModal(Dom.modal_getted);
 });
 addTouchEvent(Dom.close_suc, function () {
-    Dom.modal_suc.setAttribute('style', '')
+    hideModal(Dom.modal_suc);
 });
 addTouchEvent(Dom.close_over, function () {
-    Dom.modal_over.setAttribute('style', '')
+    hideModal(Dom.modal_over);
 });
 addTouchEvent(Dom.close_error, function () {
-    Dom.modal_error.setAttribute('style', '')
+    hideModal(Dom.modal_error);
 });
 
 function isWeiXin(){
@@ -121,6 +127,16 @@ function getEle(id) {
 }
 function addTouchEvent(dom, callback) {
     dom.addEventListener('touchstart', callback);
+}
+function showModal(dom) {
+    var modal = ['modal_getted', 'modal_suc', 'modal_over', 'modal_error', 'modal_loading'];
+    modal.forEach(function (val) {
+        Dom[val].setAttribute('style', '');
+    });
+    dom.setAttribute('style', 'display: block');
+}
+function hideModal(dom) {
+    dom.setAttribute('style', '');
 }
 (function(owner){
     owner.concatData = function (data) {
