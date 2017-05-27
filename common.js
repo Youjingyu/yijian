@@ -1,11 +1,12 @@
-// if(!isWeiXin()){
-//     getEle('main').setAttribute('style', 'display: block');
-// } else {
-//     getEle('error_info').setAttribute('style', 'display: block');
-// }
-getEle('main').setAttribute('style', 'display: block');
+if(isWeiXin()){
+    getEle('main').setAttribute('style', 'display: block');
+} else {
+    getEle('error_info').setAttribute('style', 'display: block');
+}
+
 var scale = document.body.clientWidth / 1565;
 document.getElementsByTagName('body')[0].setAttribute('style', 'height:' + (scale * 3202)  + 'px');
+var BaseUrl = 'http://192.168.0.99:8080/act-weixin/';
 var Reg = {
     tel: /^1(3|4|5|7|8)\d{9}$/,
     valid_num: /^\d{4}$/,
@@ -41,7 +42,7 @@ addTouchEvent(Dom.valid_num_btn, function () {
     btn.setAttribute("style", 'background: 0 0;background-color: #ddd;border-color: #ddd');
     timeDown(btn, 60);
 
-    http.post('http://192.168.0.182/eleme/send', {'mobile': mobile, 'type': 'login'});
+    http.post(BaseUrl + 'send', {'mobile': mobile, 'type': 'login'});
 
     function timeDown(obj, wait) {
         if (wait == 0) {
@@ -68,7 +69,7 @@ addTouchEvent(Dom.submit_btn, function () {
         return false;
     }
     Dom.modal_loading.setAttribute('style', 'display: block');
-    http.post('http://192.168.0.182/eleme/login', {'userName': tel, 'checkCode': checkCode}, function (data) {
+    http.post(BaseUrl + 'login', {'userName': tel, 'checkCode': checkCode}, function (data) {
         Dom.modal_loading.setAttribute('style', '');
         var header = data.header;
         if(header && header.errorcode){
