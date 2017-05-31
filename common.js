@@ -34,6 +34,14 @@ var Dom = {
     close_error: getEle('close_error'),
     modal_loading: getEle('modal_loading')
 }
+// var isTelCorrect = false;
+// Dom.tel_input.addEventListener('input', function () {
+//     if(Reg.tel.test(Dom.tel_input.value)){
+//         isTelCorrect = true;
+//     } else {
+//         isTelCorrect = false;
+//     }
+// });
 addTouchEvent(Dom.valid_num_btn, function () {
     var btn = Dom.valid_num_btn;
     if(btn.getAttribute('style')){
@@ -47,7 +55,7 @@ addTouchEvent(Dom.valid_num_btn, function () {
 
     btn.setAttribute("disabled", true);
     btn.setAttribute("style", 'background: 0 0;background-color: #ddd;border-color: #ddd');
-    timeDown(btn, 60);
+    timeDown(btn, 60, mobile);
     var timeDownFlag = true;
     http.post(BaseUrl + 'send', {'mobile': mobile, 'type': 'login'}, function (data) {
         if(data.code == 40000){
@@ -56,16 +64,18 @@ addTouchEvent(Dom.valid_num_btn, function () {
         }
     });
 
-    function timeDown(obj, wait) {
-        if (wait == 0 || timeDownFlag == false) {
+    function timeDown(obj, wait, mobile) {
+        // 倒计时结束、后台返回已经领取优惠券、电话号码被用户修改，都重置获取验证码按钮
+        if (wait == 0 || timeDownFlag == false || !Reg.tel.test(Dom.tel_input.value) || Dom.tel_input.value != mobile) {
             obj.removeAttribute("disabled");
             obj.setAttribute("style", '');
             obj.innerText = '';
         } else {
             obj.innerText = wait + " 秒";
             wait--;
+            var tel = Dom.tel_input.value;
             setTimeout(function () {
-                timeDown(obj, wait)
+                timeDown(obj, wait, tel)
             }, 1000)
         }
     }
