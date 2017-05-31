@@ -6,6 +6,10 @@ if(isWeiXin()){
 
 var scale = document.body.clientWidth / 1565;
 document.getElementsByTagName('body')[0].setAttribute('style', 'height:' + (scale * 3202)  + 'px');
+var clientHeight = document.body.clientHeight;
+[].forEach.call(document.getElementsByClassName('modal-front'), function (ele) {
+    ele.setAttribute('style', 'height:' + clientHeight  + 'px');
+})
 
 var BaseUrl = 'http://192.168.0.99:8080/act-weixin/';
 // var BaseUrl = 'http://192.168.0.182/eleme/';

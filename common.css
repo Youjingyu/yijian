@@ -123,7 +123,7 @@ input:focus, button:focus{
     background-size: 100% 100%;
 }
 .modal-getted{
-    height: 31%;
+    height: 28%;
     width: 63%;
     background: url("img/have-get-bg.png") no-repeat;
     background-size: 100% 100%;
@@ -145,7 +145,7 @@ input:focus, button:focus{
     border-radius: 10px;
 }
 .modal-suc{
-    height: 43%;
+    height: 40%;
     width: 63%;
     background: url("img/get-suc-bg.png") no-repeat;
     background-size: 100% 100%;
