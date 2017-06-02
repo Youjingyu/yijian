@@ -143,6 +143,8 @@ function addTouchEvent(dom, callback) {
     dom.addEventListener('touchstart', callback);
 }
 function showModal(dom) {
+    Dom.tel_input.blur();
+    Dom.valid_num.blur();
     var modal = ['modal_getted', 'modal_suc', 'modal_over', 'modal_error', 'modal_loading'];
     modal.forEach(function (val) {
         Dom[val].setAttribute('style', '');
